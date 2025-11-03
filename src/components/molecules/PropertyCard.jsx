@@ -34,8 +34,8 @@ const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
       >
         {/* Image */}
         <div className="relative h-48 overflow-hidden">
-          <img
-            src={property.images[0]}
+<img
+            src={property.images?.[0] ?? 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'}
             alt={property.address}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
