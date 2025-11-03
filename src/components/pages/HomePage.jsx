@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import HeroSection from "@/components/organisms/HeroSection";
 import PropertyGrid from "@/components/organisms/PropertyGrid";
 import { useProperties } from "@/hooks/useProperties";
 const HomePage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.user);
-  const [searchQuery, setSearchQuery] = useState("");
+const [searchQuery, setSearchQuery] = useState("");
   const [listingType, setListingType] = useState("Buy");
+  
   // Load featured properties based on listing type
   const { 
     properties, 
@@ -37,12 +36,7 @@ const HomePage = () => {
     setListingType(type);
   };
 
-const handleToggleFavorite = async (propertyId) => {
-    if (!isAuthenticated) {
-      toast.info("Please log in to save properties to your favorites");
-      return;
-    }
-    
+  const handleToggleFavorite = async (propertyId) => {
     try {
       const isFavorited = await toggleFavorite(propertyId);
       toast.success(
@@ -51,7 +45,7 @@ const handleToggleFavorite = async (propertyId) => {
     } catch (error) {
       toast.error("Failed to update favorites");
     }
-  };
+};
 
   const handleViewDetails = (propertyId) => {
     navigate(`/property/${propertyId}`);

@@ -1,11 +1,10 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { router } from "./router";
+
 function App() {
   return (
-    <>
-      <RouterProvider router={router} />
+    <div className="App">
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -18,8 +17,8 @@ function App() {
         pauseOnHover
         theme="light"
         style={{ zIndex: 9999 }}
-/>
-    </>
+      />
+    </div>
   );
 }
 
