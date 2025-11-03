@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import propertyService from "@/services/api/propertyService";
 
 export const useProperties = (filters = {}) => {
@@ -24,8 +26,15 @@ const data = Object.keys(filters).length > 0
     }
   };
 
-  const toggleFavorite = async (propertyId) => {
-try {
+const toggleFavorite = async (propertyId) => {
+    // Check authentication status before proceeding
+    const userState = useSelector.getState?.()?.user || {};
+    if (!userState.isAuthenticated) {
+      toast.info('Please log in to save properties to your favorites');
+      throw new Error('Authentication required');
+    }
+
+    try {
       const isFavorited = await propertyService.toggleFavorite(propertyId);
       
       // Update local state

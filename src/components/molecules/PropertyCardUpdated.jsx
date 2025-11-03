@@ -1,14 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 
 const PropertyCard = ({ property, onToggleFavorite }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
+    
+    if (!isAuthenticated) {
+      toast.info('Please log in to save properties to your favorites');
+      return;
+    }
+    
     onToggleFavorite(property.Id);
   };
 
