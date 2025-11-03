@@ -1,28 +1,26 @@
 {
-  "/": {
+"/": {
     "allow": {
       "when": {
         "conditions": [
           {
-            "label": "User must be authenticated to view home page",
-            "rule": "authenticated"
+            "label": "Homepage displays public property listings",
+            "rule": "public"
           }
         ]
-      },
-      "redirectOnDeny": "/login"
+      }
     }
   },
-  "/search": {
+"/search": {
     "allow": {
       "when": {
         "conditions": [
           {
-            "label": "User must be authenticated to search properties",
-            "rule": "authenticated"
+            "label": "Property search is available to public users",
+            "rule": "public"
           }
         ]
-      },
-      "redirectOnDeny": "/login"
+      }
     }
   },
   "/favorites": {
@@ -51,17 +49,16 @@
       "redirectOnDeny": "/login"
     }
   },
-  "/property/:id": {
+"/property/:id": {
     "allow": {
       "when": {
         "conditions": [
           {
-            "label": "User must be authenticated to view property details",
-            "rule": "authenticated"
+            "label": "Property details are publicly accessible",
+            "rule": "public"
           }
         ]
-      },
-      "redirectOnDeny": "/login"
+      }
     }
   },
   "/login": {
