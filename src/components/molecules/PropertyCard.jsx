@@ -35,7 +35,7 @@ const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
         {/* Image */}
         <div className="relative h-48 overflow-hidden">
 <img
-            src={property.images?.[0] ?? 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'}
+src={property.images_c?.[0] ?? 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'}
             alt={property.address}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
@@ -59,14 +59,14 @@ const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
 
           {/* Listing Type Badge */}
           <div className="absolute top-3 left-3">
-            <span className={`px-2 py-1 text-xs font-medium rounded-md ${
-              property.listingType === 'Buy' 
+<span className={`px-2 py-1 text-xs font-medium rounded-md ${
+              property.listing_type_c === 'Buy' 
                 ? 'bg-primary text-white' 
-                : property.listingType === 'Rent'
+                : property.listing_type_c === 'Rent'
                 ? 'bg-success text-white'
                 : 'bg-warning text-white'
             }`}>
-              For {property.listingType}
+              For {property.listing_type_c}
             </span>
           </div>
         </div>
@@ -76,8 +76,8 @@ const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
           {/* Price */}
           <div className="mb-2">
             <h3 className="text-xl font-bold text-primary">
-              {formatPrice(property.price)}
-              {property.listingType === 'Rent' && <span className="text-sm font-normal text-gray-600">/month</span>}
+{formatPrice(property.price_c)}
+              {property.listing_type_c === 'Rent' && <span className="text-sm font-normal text-gray-600">/month</span>}
             </h3>
           </div>
 
@@ -85,26 +85,26 @@ const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
           <div className="flex items-center space-x-4 mb-3 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
               <ApperIcon name="Bed" size={14} />
-              <span>{property.bedrooms} bed{property.bedrooms !== 1 ? 's' : ''}</span>
+<span>{property.bedrooms_c} bed{property.bedrooms_c !== 1 ? 's' : ''}</span>
             </div>
             <div className="flex items-center space-x-1">
               <ApperIcon name="Bath" size={14} />
-              <span>{property.bathrooms} bath{property.bathrooms !== 1 ? 's' : ''}</span>
+<span>{property.bathrooms_c} bath{property.bathrooms_c !== 1 ? 's' : ''}</span>
             </div>
             <div className="flex items-center space-x-1">
               <ApperIcon name="Square" size={14} />
-              <span>{formatSquareFeet(property.squareFeet)} sqft</span>
+<span>{formatSquareFeet(property.square_feet_c)} sqft</span>
             </div>
           </div>
 
           {/* Address */}
           <p className="text-gray-700 text-sm truncate">
-            {property.address}, {property.city}, {property.state} {property.zipCode}
+{property.address_c}, {property.city_c}, {property.state_c} {property.zip_code_c}
           </p>
 
           {/* Property Type */}
           <p className="text-gray-500 text-xs mt-1">
-            {property.propertyType}
+{property.property_type_c}
           </p>
         </div>
       </Card>
