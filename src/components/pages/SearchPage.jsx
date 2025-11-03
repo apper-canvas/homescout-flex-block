@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
@@ -115,8 +115,10 @@ listingType: "Buy",
     }
   };
 
+const navigate = useNavigate();
+
   const handleViewDetails = (propertyId) => {
-    setSelectedPropertyId(propertyId);
+    navigate(`/property/${propertyId}`);
   };
 
   const handleCloseModal = () => {
