@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
@@ -12,9 +13,9 @@ import { useProperties } from "@/hooks/useProperties";
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  
   // Initialize filters from URL params
 const [filters, setFilters] = useState({
     location: searchParams.get("location") || "",
@@ -104,7 +105,12 @@ listingType: "Buy",
     }));
   };
 
-  const handleToggleFavorite = async (propertyId) => {
+const handleToggleFavorite = async (propertyId) => {
+    if (!isAuthenticated) {
+      toast.info("Please log in to save properties to your favorites");
+      return;
+    }
+    
     try {
       const isFavorited = await toggleFavorite(propertyId);
       toast.success(
