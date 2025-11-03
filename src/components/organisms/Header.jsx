@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { AuthContext } from "../../App";
+import { useAuth } from "@/layouts/Root";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const authMethods = useContext(AuthContext);
+  const { logout } = useAuth();
 const navItems = [
     { path: "/", label: "Home", icon: "Home" },
     { path: "/search", label: "Properties", icon: "Search" },
@@ -68,7 +68,7 @@ const navItems = [
             <Button 
               variant="outline" 
               size="medium"
-              onClick={authMethods?.logout}
+onClick={logout}
             >
               <ApperIcon name="LogOut" size={16} className="mr-2" />
               Logout
@@ -124,7 +124,7 @@ const navItems = [
                   variant="outline" 
                   size="medium" 
                   className="w-full justify-center"
-                  onClick={authMethods?.logout}
+onClick={logout}
                 >
                   <ApperIcon name="LogOut" size={16} className="mr-2" />
                   Logout

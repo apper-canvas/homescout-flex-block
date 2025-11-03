@@ -1,0 +1,139 @@
+{
+  "/": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "User must be authenticated to view home page",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/search": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "User must be authenticated to search properties",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/favorites": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "User must be authenticated to view favorites",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/my-tours": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "User must be authenticated to view tours",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/property/:id": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "User must be authenticated to view property details",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/login": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Login page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/signup": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Signup page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/callback": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Callback page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/error": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Error page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/prompt-password/:appId/:emailAddress/:provider": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Password prompt page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/reset-password/:appId/:fields": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Password reset page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  }
+}
