@@ -6,11 +6,13 @@ import { useAuth } from "@/layouts/Root";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 const Header = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { logout } = useAuth();
-const navItems = [
+  const { isAuthenticated } = useSelector((state) => state.user);
+  
+  const navItems = [
     { path: "/", label: "Home", icon: "Home" },
     { path: "/search", label: "Properties", icon: "Search" },
     { path: "/favorites", label: "Saved", icon: "Heart" },
@@ -68,10 +70,10 @@ const navItems = [
             <Button 
               variant="outline" 
               size="medium"
-onClick={logout}
+              onClick={isAuthenticated ? logout : () => navigate('/login')}
             >
-              <ApperIcon name="LogOut" size={16} className="mr-2" />
-              Logout
+              <ApperIcon name={isAuthenticated ? "LogOut" : "User"} size={16} className="mr-2" />
+              {isAuthenticated ? "Logout" : "Login"}
             </Button>
             <Button 
               variant="primary" 
@@ -124,10 +126,10 @@ onClick={logout}
                   variant="outline" 
                   size="medium" 
                   className="w-full justify-center"
-onClick={logout}
+                  onClick={isAuthenticated ? logout : () => navigate('/login')}
                 >
-                  <ApperIcon name="LogOut" size={16} className="mr-2" />
-                  Logout
+                  <ApperIcon name={isAuthenticated ? "LogOut" : "User"} size={16} className="mr-2" />
+                  {isAuthenticated ? "Logout" : "Login"}
                 </Button>
                 <Button 
                   variant="primary" 
