@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { authMethods } = useContext(AuthContext);
+const authMethods = useContext(AuthContext);
 const navItems = [
     { path: "/", label: "Home", icon: "Home" },
     { path: "/search", label: "Properties", icon: "Search" },
