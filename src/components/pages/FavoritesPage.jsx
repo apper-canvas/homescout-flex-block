@@ -38,10 +38,10 @@ const FavoritesPage = () => {
     }
   };
 
-  const handleShare = async (property) => {
+const handleShare = async (property) => {
     const shareData = {
-      title: `Check out this property: ${property.title}`,
-      text: `${property.title} - $${property.price?.toLocaleString()} | ${property.bedrooms} bed, ${property.bathrooms} bath`,
+      title: `Check out this property: ${property.Name}`,
+      text: `${property.Name} - $${(property.price_c || property.price)?.toLocaleString()} | ${property.bedrooms_c || property.bedrooms} bed, ${property.bathrooms_c || property.bathrooms} bath`,
       url: window.location.origin + `/property/${property.Id}`
     };
 

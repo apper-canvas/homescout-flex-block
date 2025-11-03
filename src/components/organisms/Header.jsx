@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { AuthContext } from "../../App";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
-
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const { authMethods } = useContext(AuthContext);
 const navItems = [
     { path: "/", label: "Home", icon: "Home" },
     { path: "/search", label: "Properties", icon: "Search" },
@@ -63,8 +64,16 @@ const navItems = [
           </nav>
 
           {/* Contact Button - Desktop */}
-          <div className="hidden md:block">
-<Button 
+<div className="hidden md:flex items-center space-x-4">
+            <Button 
+              variant="outline" 
+              size="medium"
+              onClick={authMethods?.logout}
+            >
+              <ApperIcon name="LogOut" size={16} className="mr-2" />
+              Logout
+            </Button>
+            <Button 
               variant="primary" 
               size="medium"
               onClick={() => navigate('/search')}
@@ -110,8 +119,17 @@ const navItems = [
                 </button>
               ))}
               
-              <div className="pt-3 mt-3 border-t border-gray-200">
-<Button 
+<div className="pt-3 mt-3 border-t border-gray-200 space-y-2">
+                <Button 
+                  variant="outline" 
+                  size="medium" 
+                  className="w-full justify-center"
+                  onClick={authMethods?.logout}
+                >
+                  <ApperIcon name="LogOut" size={16} className="mr-2" />
+                  Logout
+                </Button>
+                <Button 
                   variant="primary" 
                   size="medium" 
                   className="w-full justify-center"

@@ -52,7 +52,7 @@ const ContactAgentModal = ({ isOpen, onClose, agent, propertyId }) => {
 
     setIsSubmitting(true);
     try {
-      await contactService.create({
+await contactService.create({
         ...formData,
         propertyId: parseInt(propertyId),
         agentId: agent?.id || 1,

@@ -155,7 +155,7 @@ price: true,
         onToggle={() => toggleSection("propertyType")}
       >
         <div className="space-y-3">
-          {["Single Family", "Condo", "Townhouse", "Land"].map((type) => (
+{["Single Family", "Condo", "Townhouse", "Land"].map((type) => (
             <label key={type} className="flex items-center space-x-3 cursor-pointer">
               <input
                 type="checkbox"

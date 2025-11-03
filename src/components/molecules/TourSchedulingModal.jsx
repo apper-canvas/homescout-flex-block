@@ -48,10 +48,10 @@ const TourSchedulingModal = ({ isOpen, onClose, property }) => {
 
     setIsSubmitting(true);
     try {
-      await tourService.create({
+await tourService.create({
         ...formData,
         propertyId: property?.Id,
-        propertyAddress: `${property?.address}, ${property?.city}, ${property?.state} ${property?.zipCode}`,
+        propertyAddress: `${property?.address_c || property?.address}, ${property?.city_c || property?.city}, ${property?.state_c || property?.state} ${property?.zip_code_c || property?.zipCode}`,
         agentId: property?.agent?.id || 1,
         agentName: property?.agent?.name || 'Agent',
         agentEmail: property?.agent?.email || 'agent@realty.com',
@@ -98,20 +98,20 @@ const TourSchedulingModal = ({ isOpen, onClose, property }) => {
           </div>
 
           {/* Property Info */}
-          {property && (
+{property && (
             <div className="p-6 bg-gray-50 border-b border-gray-200">
               <div className="flex items-start space-x-3">
                 <img
-                  src={property.images?.[0] || '/api/placeholder/60/60'}
-                  alt={property.address}
+                  src={(property.images_c || property.images)?.[0] || '/api/placeholder/60/60'}
+                  alt={property.address_c || property.address}
                   className="w-16 h-16 object-cover rounded-lg"
                 />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{property.address}</h3>
-                  <p className="text-sm text-gray-600">{property.city}, {property.state} {property.zipCode}</p>
+                  <h3 className="font-semibold text-gray-900">{property.address_c || property.address}</h3>
+                  <p className="text-sm text-gray-600">{property.city_c || property.city}, {property.state_c || property.state} {property.zip_code_c || property.zipCode}</p>
                   <p className="text-lg font-bold text-primary mt-1">
-                    ${property.price?.toLocaleString()}
-                    {property.listingType === 'Rent' && <span className="text-sm font-normal">/month</span>}
+                    ${(property.price_c || property.price)?.toLocaleString()}
+                    {(property.listing_type_c || property.listingType) === 'Rent' && <span className="text-sm font-normal">/month</span>}
                   </p>
                 </div>
               </div>

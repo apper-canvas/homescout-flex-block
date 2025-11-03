@@ -25,7 +25,7 @@ const MyToursPage = () => {
 
   const loadTours = async () => {
     try {
-      setLoading(true);
+setLoading(true);
       const data = await tourService.getAll();
       setTours(data);
     } catch (err) {
@@ -52,7 +52,7 @@ const MyToursPage = () => {
   };
 
   const handleRescheduleSubmit = async (newTourData) => {
-    if (!selectedTour) return;
+if (!selectedTour) return;
 
     try {
       await tourService.update(selectedTour.Id, {
@@ -99,14 +99,14 @@ const MyToursPage = () => {
     };
   };
 
-  const filteredTours = tours.filter(tour => {
-    if (filter === 'upcoming') return tour.status === 'Scheduled';
-    if (filter === 'completed') return tour.status === 'Completed';
-    if (filter === 'cancelled') return tour.status === 'Cancelled';
+const filteredTours = tours.filter(tour => {
+    if (filter === 'upcoming') return (tour.status_c || tour.status) === 'Scheduled';
+    if (filter === 'completed') return (tour.status_c || tour.status) === 'Completed';
+    if (filter === 'cancelled') return (tour.status_c || tour.status) === 'Cancelled';
     return true;
   });
 
-  const getUpcomingCount = () => tours.filter(t => t.status === 'Scheduled').length;
+const getUpcomingCount = () => tours.filter(t => (t.status_c || t.status) === 'Scheduled').length;
 
   if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadTours} />;
@@ -137,27 +137,28 @@ const MyToursPage = () => {
         >
           All Tours ({tours.length})
         </Button>
-        <Button
+<Button
           variant={filter === 'upcoming' ? 'primary' : 'outline'}
           size="small"
           onClick={() => setFilter('upcoming')}
         >
-          Upcoming ({tours.filter(t => t.status === 'Scheduled').length})
+          Upcoming ({tours.filter(t => (t.status_c || t.status) === 'Scheduled').length})
         </Button>
         <Button
           variant={filter === 'completed' ? 'primary' : 'outline'}
           size="small"
           onClick={() => setFilter('completed')}
         >
-          Completed ({tours.filter(t => t.status === 'Completed').length})
+          Completed ({tours.filter(t => (t.status_c || t.status) === 'Completed').length})
         </Button>
         <Button
           variant={filter === 'cancelled' ? 'primary' : 'outline'}
           size="small"
           onClick={() => setFilter('cancelled')}
         >
-          Cancelled ({tours.filter(t => t.status === 'Cancelled').length})
+          Cancelled ({tours.filter(t => (t.status_c || t.status) === 'Cancelled').length})
         </Button>
+Upcoming ({tours.filter(t => (t.status_c || t.status) === 'Scheduled').length})
       </div>
 
       {/* Tours List */}
@@ -174,9 +175,9 @@ const MyToursPage = () => {
         />
       ) : (
         <div className="space-y-4">
-          {filteredTours.map((tour, index) => {
-            const dateTime = formatDateTime(tour.date, tour.time);
-            const isUpcoming = tour.status === 'Scheduled' && new Date(`${tour.date}T${tour.time}`) > new Date();
+{filteredTours.map((tour, index) => {
+            const dateTime = formatDateTime(tour.date_c || tour.date, tour.time_c || tour.time);
+            const isUpcoming = (tour.status_c || tour.status) === 'Scheduled' && new Date(`${tour.date_c || tour.date}T${tour.time_c || tour.time}`) > new Date();
             
             return (
               <motion.div
@@ -189,8 +190,8 @@ const MyToursPage = () => {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
-                        <Badge className={getStatusColor(tour.status)}>
-                          {tour.status}
+<Badge className={getStatusColor(tour.status_c || tour.status)}>
+                          {tour.status_c || tour.status}
                         </Badge>
                         <div className="flex items-center space-x-1 text-sm text-gray-600">
                           <ApperIcon name={getTourTypeIcon(tour.tourType)} size={14} />
@@ -198,8 +199,8 @@ const MyToursPage = () => {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        {tour.propertyAddress}
+<h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {tour.property_address_c || tour.propertyAddress}
                       </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -211,33 +212,33 @@ const MyToursPage = () => {
                           <ApperIcon name="Clock" size={14} />
                           <span>{dateTime.time}</span>
                         </div>
-                        <div className="flex items-center space-x-2 text-sm text-gray-600">
+<div className="flex items-center space-x-2 text-sm text-gray-600">
                           <ApperIcon name="User" size={14} />
-                          <span>{tour.agentName}</span>
+                          <span>{tour.agent_name_c || tour.agentName}</span>
                         </div>
                         <div className="flex items-center space-x-2 text-sm text-gray-600">
                           <ApperIcon name="Phone" size={14} />
-                          <span>{tour.agentPhone}</span>
+                          <span>{tour.agent_phone_c || tour.agentPhone}</span>
                         </div>
                       </div>
 
-                      {tour.specialRequests && (
+{(tour.special_requests_c || tour.specialRequests) && (
                         <div className="mb-4">
                           <p className="text-sm text-gray-600">
                             <span className="font-medium">Special Requests: </span>
-                            {tour.specialRequests}
+                            {tour.special_requests_c || tour.specialRequests}
                           </p>
                         </div>
                       )}
 
                       <div className="text-xs text-gray-500">
-                        Scheduled on {new Date(tour.createdAt).toLocaleDateString()}
+Scheduled on {new Date(tour.CreatedOn || tour.createdAt).toLocaleDateString()}
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex items-center space-x-2 ml-4">
-                      {tour.status === 'Scheduled' && isUpcoming && (
+{(tour.status_c || tour.status) === 'Scheduled' && isUpcoming && (
                         <>
                           <Button
                             variant="outline"
@@ -274,32 +275,32 @@ const MyToursPage = () => {
       )}
 
       {/* Reschedule Modal */}
-      <TourSchedulingModal
+<TourSchedulingModal
         isOpen={showRescheduleModal}
         onClose={() => {
           setShowRescheduleModal(false);
           setSelectedTour(null);
         }}
         property={{
-          Id: selectedTour?.propertyId,
-          address: selectedTour?.propertyAddress?.split(',')[0] || '',
-          city: selectedTour?.propertyAddress?.split(',')[1]?.trim() || '',
-          state: selectedTour?.propertyAddress?.split(',')[2]?.trim()?.split(' ')[0] || '',
-          zipCode: selectedTour?.propertyAddress?.split(' ').pop() || '',
+          Id: selectedTour?.property_id_c || selectedTour?.propertyId,
+          address_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(',')[0] || '',
+          city_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(',')[1]?.trim() || '',
+          state_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(',')[2]?.trim()?.split(' ')[0] || '',
+          zip_code_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(' ').pop() || '',
           agent: {
-            name: selectedTour?.agentName,
-            email: selectedTour?.agentEmail,
-            phone: selectedTour?.agentPhone
+            name: selectedTour?.agent_name_c || selectedTour?.agentName,
+            email: selectedTour?.agent_email_c || selectedTour?.agentEmail,
+            phone: selectedTour?.agent_phone_c || selectedTour?.agentPhone
           }
         }}
         initialData={{
-          name: selectedTour?.userName || '',
-          email: selectedTour?.userEmail || '',
-          phone: selectedTour?.userPhone || '',
-          date: selectedTour?.date || '',
-          time: selectedTour?.time || '',
-          tourType: selectedTour?.tourType || 'In-Person',
-          specialRequests: selectedTour?.specialRequests || ''
+          name: selectedTour?.user_name_c || selectedTour?.userName || '',
+          email: selectedTour?.user_email_c || selectedTour?.userEmail || '',
+          phone: selectedTour?.user_phone_c || selectedTour?.userPhone || '',
+          date: selectedTour?.date_c || selectedTour?.date || '',
+          time: selectedTour?.time_c || selectedTour?.time || '',
+          tourType: selectedTour?.tour_type_c || selectedTour?.tourType || 'In-Person',
+          specialRequests: selectedTour?.special_requests_c || selectedTour?.specialRequests || ''
         }}
         onSubmit={handleRescheduleSubmit}
         isReschedule={true}

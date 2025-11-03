@@ -11,7 +11,7 @@ export const useProperties = (filters = {}) => {
     setError("");
     
     try {
-      const data = Object.keys(filters).length > 0 
+const data = Object.keys(filters).length > 0 
         ? await propertyService.searchProperties(filters)
         : await propertyService.getAll();
       
@@ -25,7 +25,7 @@ export const useProperties = (filters = {}) => {
   };
 
   const toggleFavorite = async (propertyId) => {
-    try {
+try {
       const isFavorited = await propertyService.toggleFavorite(propertyId);
       
       // Update local state
@@ -87,7 +87,7 @@ export const useFavoriteProperties = () => {
     }
   };
 
-  const removeFavorite = async (propertyId) => {
+const removeFavorite = async (propertyId) => {
     try {
       await propertyService.toggleFavorite(propertyId);
       setFavorites(prevFavorites =>
@@ -99,7 +99,7 @@ export const useFavoriteProperties = () => {
     }
   };
 
-  const updatePropertyNote = async (propertyId, note) => {
+const updatePropertyNote = async (propertyId, note) => {
     try {
       await propertyService.savePropertyNote(propertyId, note);
       setFavorites(prevFavorites =>

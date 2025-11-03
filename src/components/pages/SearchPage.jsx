@@ -126,23 +126,23 @@ const navigate = useNavigate();
   };
 
   // Sort properties
-  const sortedProperties = React.useMemo(() => {
+const sortedProperties = React.useMemo(() => {
     if (!properties) return [];
     
     const sorted = [...properties];
     
     switch (sortBy) {
       case "price-low":
-        return sorted.sort((a, b) => a.price - b.price);
+        return sorted.sort((a, b) => (a.price_c || a.price) - (b.price_c || b.price));
       case "price-high":
-        return sorted.sort((a, b) => b.price - a.price);
+        return sorted.sort((a, b) => (b.price_c || b.price) - (a.price_c || a.price));
       case "beds":
-        return sorted.sort((a, b) => b.bedrooms - a.bedrooms);
+        return sorted.sort((a, b) => (b.bedrooms_c || b.bedrooms) - (a.bedrooms_c || a.bedrooms));
       case "sqft":
-        return sorted.sort((a, b) => b.squareFeet - a.squareFeet);
+        return sorted.sort((a, b) => (b.square_feet_c || b.squareFeet) - (a.square_feet_c || a.squareFeet));
       case "newest":
       default:
-        return sorted.sort((a, b) => new Date(b.listedDate) - new Date(a.listedDate));
+        return sorted.sort((a, b) => new Date(b.listed_date_c || b.listedDate) - new Date(a.listed_date_c || a.listedDate));
     }
   }, [properties, sortBy]);
 

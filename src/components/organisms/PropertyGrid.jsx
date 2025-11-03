@@ -63,7 +63,7 @@ const PropertyGrid = ({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        {properties.map((property, index) => (
+{properties.map((property, index) => (
           <motion.div
             key={property.Id}
             initial={{ opacity: 0, y: 20 }}

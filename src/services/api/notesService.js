@@ -1,4 +1,4 @@
-// Mock notes service for property annotations
+// Notes service for property annotations - using localStorage for user-specific notes
 const NOTES_STORAGE_KEY = 'property_notes';
 
 class NotesService {

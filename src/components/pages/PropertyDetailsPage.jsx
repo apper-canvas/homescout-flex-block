@@ -96,10 +96,10 @@ const handleScheduleTour = () => {
   };
 
   const handleShare = () => {
-    if (navigator.share && property) {
+if (navigator.share && property) {
       navigator.share({
-        title: `Property at ${property.address}`,
-        text: `Check out this ${property.bedrooms}br/${property.bathrooms}ba ${property.propertyType} for ${formatPrice(property.price)}`,
+        title: `Property at ${property.address_c || property.address}`,
+        text: `Check out this ${property.bedrooms_c || property.bedrooms}br/${property.bathrooms_c || property.bathrooms}ba ${property.property_type_c || property.propertyType} for ${formatPrice(property.price_c || property.price)}`,
         url: window.location.href,
       }).catch(() => {
         // Fallback to clipboard
@@ -178,20 +178,20 @@ return (
             <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  {property.address}
+{property.address_c || property.address}
                 </h1>
                 <p className="text-lg text-gray-600">
-                  {property.city}, {property.state} {property.zipCode}
+                  {property.city_c || property.city}, {property.state_c || property.state} {property.zip_code_c || property.zipCode}
                 </p>
                 <div className="flex items-center space-x-4 mt-3">
                   <div className="text-4xl font-bold text-primary">
-                    {formatPrice(property.price)}
-                    {property.listingType === 'Rent' && (
+                    {formatPrice(property.price_c || property.price)}
+                    {(property.listing_type_c || property.listingType) === 'Rent' && (
                       <span className="text-xl font-normal text-gray-600">/month</span>
                     )}
                   </div>
                   <Badge variant="primary" className="text-sm">
-                    For {property.listingType}
+                    For {property.listing_type_c || property.listingType}
                   </Badge>
                 </div>
               </div>
@@ -225,42 +225,42 @@ return (
                 <div className="flex items-center justify-center mb-2">
                   <ApperIcon name="Bed" size={24} className="text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{property.bedrooms}</div>
-                <div className="text-sm text-gray-600">Bedroom{property.bedrooms !== 1 ? 's' : ''}</div>
+<div className="text-2xl font-bold text-gray-900">{property.bedrooms_c || property.bedrooms}</div>
+                <div className="text-sm text-gray-600">Bedroom{(property.bedrooms_c || property.bedrooms) !== 1 ? 's' : ''}</div>
               </div>
               
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <ApperIcon name="Bath" size={24} className="text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{property.bathrooms}</div>
-                <div className="text-sm text-gray-600">Bathroom{property.bathrooms !== 1 ? 's' : ''}</div>
+<div className="text-2xl font-bold text-gray-900">{property.bathrooms_c || property.bathrooms}</div>
+                <div className="text-sm text-gray-600">Bathroom{(property.bathrooms_c || property.bathrooms) !== 1 ? 's' : ''}</div>
               </div>
               
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <ApperIcon name="Square" size={24} className="text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{formatSquareFeet(property.squareFeet)}</div>
+<div className="text-2xl font-bold text-gray-900">{formatSquareFeet(property.square_feet_c || property.squareFeet)}</div>
                 <div className="text-sm text-gray-600">Sq Ft</div>
               </div>
               
-              {property.lotSize && (
+{(property.lot_size_c || property.lotSize) && (
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <ApperIcon name="TreePine" size={24} className="text-primary" />
                   </div>
-                  <div className="text-2xl font-bold text-gray-900">{formatSquareFeet(property.lotSize)}</div>
+                  <div className="text-2xl font-bold text-gray-900">{formatSquareFeet(property.lot_size_c || property.lotSize)}</div>
                   <div className="text-sm text-gray-600">Lot Size</div>
                 </div>
               )}
               
-              {property.yearBuilt && (
+{(property.year_built_c || property.yearBuilt) && (
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <ApperIcon name="Calendar" size={24} className="text-primary" />
                   </div>
-                  <div className="text-2xl font-bold text-gray-900">{property.yearBuilt}</div>
+                  <div className="text-2xl font-bold text-gray-900">{property.year_built_c || property.yearBuilt}</div>
                   <div className="text-sm text-gray-600">Year Built</div>
                 </div>
               )}
@@ -284,13 +284,13 @@ return (
               <div className="relative">
                 <div className="aspect-[16/10] bg-gray-100">
                   <img
-                    src={property.images?.[currentImageIndex] || '/api/placeholder/800/500'}
+src={(property.images_c || property.images)?.[currentImageIndex] || '/api/placeholder/800/500'}
                     alt={`Property ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                   />
                   
                   {/* Image Navigation */}
-                  {property.images && property.images.length > 1 && (
+{(property.images_c || property.images) && (property.images_c || property.images).length > 1 && (
                     <>
                       <button
                         onClick={prevImage}
@@ -308,17 +308,17 @@ return (
 
                       {/* Image Counter */}
                       <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                        {currentImageIndex + 1} / {property.images.length}
+{currentImageIndex + 1} / {(property.images_c || property.images).length}
                       </div>
                     </>
                   )}
                 </div>
                 
                 {/* Thumbnail Strip */}
-                {property.images && property.images.length > 1 && (
+{(property.images_c || property.images) && (property.images_c || property.images).length > 1 && (
                   <div className="p-4 bg-gray-50">
                     <div className="flex space-x-2 overflow-x-auto">
-                      {property.images.map((image, index) => (
+{(property.images_c || property.images).map((image, index) => (
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
@@ -342,11 +342,11 @@ return (
             </div>
 
             {/* Description */}
-            {property.description && (
+{(property.description_c || property.description) && (
               <div className="bg-white rounded-lg shadow-card p-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  {property.description}
+                  {property.description_c || property.description}
                 </p>
               </div>
             )}
@@ -354,8 +354,8 @@ return (
             {/* Key Features */}
             <div className="bg-white rounded-lg shadow-card p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Features & Amenities</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {(property.features || [
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {(property.features_c || property.features || [
                   "Central Air Conditioning",
                   "Hardwood Floors", 
                   "Updated Kitchen",
@@ -462,22 +462,22 @@ return (
                   <h4 className="font-semibold text-gray-900 mb-3">Annual Tax Breakdown</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Property Tax</span>
-                      <span className="font-medium">{formatPrice(Math.round(property.price * 0.012))}</span>
+<span className="text-gray-600">Property Tax</span>
+                      <span className="font-medium">{formatPrice(Math.round((property.price_c || property.price) * 0.012))}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">School Tax</span>
-                      <span className="font-medium">{formatPrice(Math.round(property.price * 0.008))}</span>
+                      <span className="font-medium">{formatPrice(Math.round((property.price_c || property.price) * 0.008))}</span>
                     </div>
-                    {property.hoaFees && (
+                    {(property.hoa_fees_c || property.hoaFees) && (
                       <div className="flex justify-between">
                         <span className="text-gray-600">HOA Fees (Annual)</span>
-                        <span className="font-medium">{formatPrice(property.hoaFees * 12)}</span>
+                        <span className="font-medium">{formatPrice((property.hoa_fees_c || property.hoaFees) * 12)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between font-semibold text-lg border-t border-gray-200 pt-2">
+<div className="flex justify-between font-semibold text-lg border-t border-gray-200 pt-2">
                       <span>Total Annual</span>
-                      <span>{formatPrice(Math.round(property.price * 0.02) + (property.hoaFees ? property.hoaFees * 12 : 0))}</span>
+                      <span>{formatPrice(Math.round((property.price_c || property.price) * 0.02) + ((property.hoa_fees_c || property.hoaFees) ? (property.hoa_fees_c || property.hoaFees) * 12 : 0))}</span>
                     </div>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ return (
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Price History</h2>
               <div className="space-y-4">
                 {[
-                  { date: "Dec 2024", price: property.price, event: "Listed for sale", change: null },
+{ date: "Dec 2024", price: property.price_c || property.price, event: "Listed for sale", change: null },
                   { date: "Aug 2023", price: Math.round(property.price * 0.95), event: "Sold", change: "+2.1%" },
                   { date: "Mar 2022", price: Math.round(property.price * 0.88), event: "Sold", change: "+8.5%" },
                   { date: "Nov 2019", price: Math.round(property.price * 0.78), event: "Sold", change: "+12.3%" }
@@ -621,25 +621,25 @@ return (
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Principal & Interest</span>
-                  <span className="font-medium">{formatPrice(Math.round(property.price * 0.005))}</span>
+<span className="font-medium">{formatPrice(Math.round((property.price_c || property.price) * 0.005))}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Property Taxes</span>
-                  <span className="font-medium">{formatPrice(Math.round(property.price * 0.02 / 12))}</span>
+                  <span className="font-medium">{formatPrice(Math.round((property.price_c || property.price) * 0.02 / 12))}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Insurance</span>
-                  <span className="font-medium">{formatPrice(Math.round(property.price * 0.003 / 12))}</span>
+                  <span className="font-medium">{formatPrice(Math.round((property.price_c || property.price) * 0.003 / 12))}</span>
                 </div>
-                {property.hoaFees && (
+                {(property.hoa_fees_c || property.hoaFees) && (
                   <div className="flex justify-between">
                     <span className="text-gray-600">HOA Fees</span>
-                    <span className="font-medium">{formatPrice(property.hoaFees)}</span>
+                    <span className="font-medium">{formatPrice(property.hoa_fees_c || property.hoaFees)}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-bold text-lg border-t border-gray-200 pt-3">
                   <span>Total Monthly</span>
-                  <span>{formatPrice(Math.round(property.price * 0.005) + Math.round(property.price * 0.02 / 12) + Math.round(property.price * 0.003 / 12) + (property.hoaFees || 0))}</span>
+                  <span>{formatPrice(Math.round((property.price_c || property.price) * 0.005) + Math.round((property.price_c || property.price) * 0.02 / 12) + Math.round((property.price_c || property.price) * 0.003 / 12) + ((property.hoa_fees_c || property.hoaFees) || 0))}</span>
                 </div>
               </div>
               <p className="text-xs text-gray-500 mt-3">
