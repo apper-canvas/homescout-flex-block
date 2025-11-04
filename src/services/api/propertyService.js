@@ -1,5 +1,7 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import notesService from "./notesService.js";
+import React from "react";
+import Error from "@/components/ui/Error";
 
 const FAVORITES_KEY = 'favoriteProperties';
 
@@ -214,24 +216,25 @@ class PropertyService {
     }
   }
 
-  async toggleFavorite(id) {
-    const propertyId = parseInt(id);
-    if (favoriteProperties.has(propertyId)) {
-      favoriteProperties.delete(propertyId);
-      saveFavoritesToStorage(Array.from(favoriteProperties));
-      return false; // Not favorited anymore
-    } else {
-      favoriteProperties.add(propertyId);
-      saveFavoritesToStorage(Array.from(favoriteProperties));
-      return true; // Now favorited
-    }
+async toggleFavorite(id) {
+    return new Promise((resolve) => {
+      const propertyId = parseInt(id);
+      if (favoriteProperties.has(propertyId)) {
+        favoriteProperties.delete(propertyId);
+        saveFavoritesToStorage(Array.from(favoriteProperties));
+        resolve(false); // Not favorited anymore
+      } else {
+        favoriteProperties.add(propertyId);
+        saveFavoritesToStorage(Array.from(favoriteProperties));
+        resolve(true); // Now favorited
+      }
+    });
   }
 
   async savePropertyNote(propertyId, note) {
     await notesService.savePropertyNote(propertyId, note);
     return { success: true };
   }
-
   async searchProperties(filters = {}) {
     try {
       const params = {

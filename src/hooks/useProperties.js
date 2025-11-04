@@ -27,8 +27,9 @@ const data = Object.keys(filters).length > 0
   };
 
 const toggleFavorite = async (propertyId) => {
+    const userState = useSelector(state => state.user);
+    
     // Check authentication status before proceeding
-    const userState = useSelector.getState?.()?.user || {};
     if (!userState.isAuthenticated) {
       toast.info('Please log in to save properties to your favorites');
       throw new Error('Authentication required');

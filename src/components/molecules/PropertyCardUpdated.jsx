@@ -1,16 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 
-const PropertyCard = ({ property, onToggleFavorite }) => {
+const PropertyCardUpdated = ({ property, onToggleFavorite }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.user);
 
-  const handleFavoriteClick = (e) => {
+  const handleFavoriteClick = async (e) => {
     e.stopPropagation();
     
     if (!isAuthenticated) {
@@ -18,7 +18,7 @@ const PropertyCard = ({ property, onToggleFavorite }) => {
       return;
     }
     
-    onToggleFavorite(property.Id);
+await onToggleFavorite(property.Id);
   };
 
   const handleViewDetails = () => {
@@ -132,4 +132,4 @@ const PropertyCard = ({ property, onToggleFavorite }) => {
   );
 };
 
-export default PropertyCard;
+export default PropertyCardUpdated;

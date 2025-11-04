@@ -4,9 +4,9 @@ import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 
 const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
-  const handleFavoriteClick = (e) => {
+  const handleFavoriteClick = async (e) => {
     e.stopPropagation();
-    onToggleFavorite(property.Id);
+    await onToggleFavorite(property.Id);
   };
 
   const formatPrice = (price) => {
