@@ -7,7 +7,7 @@ export const useProperties = (filters = {}) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const userState = useSelector(state => state.user);
   const loadProperties = async () => {
     setLoading(true);
     setError("");
@@ -27,7 +27,7 @@ const data = Object.keys(filters).length > 0
   };
 
 const toggleFavorite = async (propertyId) => {
-    const userState = useSelector(state => state.user);
+    // userState is now passed from the hook level
     
     // Check authentication status before proceeding
     if (!userState.isAuthenticated) {
