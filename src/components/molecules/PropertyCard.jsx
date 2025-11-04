@@ -1,11 +1,26 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 
 const PropertyCard = ({ property, onToggleFavorite, onViewDetails }) => {
+  const { isAuthenticated } = useSelector(state => state.user);
+  const navigate = useNavigate();
+
   const handleFavoriteClick = async (e) => {
     e.stopPropagation();
+    
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Redirect to login with current property page as return URL
+      const currentPath = `/property/${property.Id}`;
+      navigate(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+    
+    // Proceed with favorite toggle for authenticated users
     await onToggleFavorite(property.Id);
   };
 
