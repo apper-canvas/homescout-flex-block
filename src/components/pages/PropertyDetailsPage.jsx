@@ -98,7 +98,7 @@ const handleScheduleTour = () => {
   const handleShare = () => {
 if (navigator.share && property) {
       navigator.share({
-        title: `Property at ${property.address_c || property.address}`,
+title: property.Name || `Property at ${property.address_c || property.address}`,
         text: `Check out this ${property.bedrooms_c || property.bedrooms}br/${property.bathrooms_c || property.bathrooms}ba ${property.property_type_c || property.propertyType} for ${formatPrice(property.price_c || property.price)}`,
         url: window.location.href,
       }).catch(() => {
@@ -178,7 +178,7 @@ return (
             <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">
-{property.address_c || property.address}
+{property.Name || `Property at ${property.address_c || property.address}`}
                 </h1>
                 <p className="text-lg text-gray-600">
                   {property.city_c || property.city}, {property.state_c || property.state} {property.zip_code_c || property.zipCode}

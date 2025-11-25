@@ -113,8 +113,11 @@ src={property.images_c?.[0] ?? 'https://images.unsplash.com/photo-1560518883-ce0
           </div>
 
           {/* Address */}
+<h3 className="font-semibold text-gray-900 mb-1 truncate">
+            {property.Name || `Property at ${property.address_c}`}
+          </h3>
           <p className="text-gray-700 text-sm truncate">
-{property.address_c}, {property.city_c}, {property.state_c} {property.zip_code_c}
+            {property.address_c}, {property.city_c}, {property.state_c} {property.zip_code_c}
           </p>
 
           {/* Property Type */}

@@ -105,8 +105,8 @@ await onToggleFavorite(property.Id);
           </div>
           
           <div>
-            <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-              {property.address}
+<h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+              {property.Name || `Property at ${property.address}`}
             </h3>
             <p className="text-gray-600 text-sm">
               {property.city}, {property.state} {property.zipCode}
