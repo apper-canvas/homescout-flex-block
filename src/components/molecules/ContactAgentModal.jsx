@@ -56,9 +56,9 @@ await contactService.create({
         ...formData,
         propertyId: parseInt(propertyId),
         agentId: agent?.id || 1,
-        agentName: agent?.name || 'Agent',
-        agentEmail: agent?.email || 'agent@realty.com',
-        agentPhone: agent?.phone || '(555) 000-0000'
+        agentName: agent?.name || agent?.agent_name_c || 'Agent',
+        agentEmail: agent?.email || agent?.agent_email_c || 'agent@realty.com',
+        agentPhone: agent?.phone || agent?.agent_phone_c || '(555) 000-0000'
       });
       
       setFormData({
@@ -107,7 +107,7 @@ await contactService.create({
                   <ApperIcon name="User" size={24} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">{agent.name}</h3>
+<h3 className="font-semibold text-gray-900">{agent.name || agent.agent_name_c || 'Agent'}</h3>
                   <p className="text-sm text-gray-600">{agent.company}</p>
                   <div className="flex items-center space-x-2 text-sm text-gray-500">
                     <ApperIcon name="Star" size={14} className="text-yellow-400 fill-current" />

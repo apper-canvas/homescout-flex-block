@@ -214,11 +214,11 @@ Upcoming ({tours.filter(t => (t.status_c || t.status) === 'Scheduled').length})
                         </div>
 <div className="flex items-center space-x-2 text-sm text-gray-600">
                           <ApperIcon name="User" size={14} />
-                          <span>{tour.agent_name_c || tour.agentName}</span>
+                          <span>{tour.agent_name_c || tour.agentName || 'Agent'}</span>
                         </div>
                         <div className="flex items-center space-x-2 text-sm text-gray-600">
                           <ApperIcon name="Phone" size={14} />
-                          <span>{tour.agent_phone_c || tour.agentPhone}</span>
+                          <span>{tour.agent_phone_c || tour.agentPhone || '(555) 000-0000'}</span>
                         </div>
                       </div>
 
@@ -287,10 +287,10 @@ Scheduled on {new Date(tour.CreatedOn || tour.createdAt).toLocaleDateString()}
           city_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(',')[1]?.trim() || '',
           state_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(',')[2]?.trim()?.split(' ')[0] || '',
           zip_code_c: (selectedTour?.property_address_c || selectedTour?.propertyAddress)?.split(' ').pop() || '',
-          agent: {
-            name: selectedTour?.agent_name_c || selectedTour?.agentName,
-            email: selectedTour?.agent_email_c || selectedTour?.agentEmail,
-            phone: selectedTour?.agent_phone_c || selectedTour?.agentPhone
+agent: {
+            name: selectedTour?.agent_name_c || selectedTour?.agentName || 'Agent',
+            email: selectedTour?.agent_email_c || selectedTour?.agentEmail || 'agent@realty.com',
+            phone: selectedTour?.agent_phone_c || selectedTour?.agentPhone || '(555) 000-0000'
           }
         }}
         initialData={{

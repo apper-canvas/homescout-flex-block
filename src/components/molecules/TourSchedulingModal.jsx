@@ -53,9 +53,9 @@ await tourService.create({
         propertyId: property?.Id,
         propertyAddress: `${property?.address_c || property?.address}, ${property?.city_c || property?.city}, ${property?.state_c || property?.state} ${property?.zip_code_c || property?.zipCode}`,
         agentId: property?.agent?.id || 1,
-        agentName: property?.agent?.name || 'Agent',
-        agentEmail: property?.agent?.email || 'agent@realty.com',
-        agentPhone: property?.agent?.phone || '(555) 000-0000'
+        agentName: property?.agent?.name || property?.agent_name_c || 'Agent',
+        agentEmail: property?.agent?.email || property?.agent_email_c || 'agent@realty.com',
+        agentPhone: property?.agent?.phone || property?.agent_phone_c || '(555) 000-0000'
       });
       
       setFormData({

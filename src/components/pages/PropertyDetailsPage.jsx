@@ -589,7 +589,7 @@ src={(property.images_c || property.images)?.[currentImageIndex] || '/api/placeh
                   <ApperIcon name="User" size={24} className="text-gray-400" />
                 </div>
                 <div>
-<h4 className="font-semibold text-gray-900">{property.agent?.name || "Sarah Johnson"}</h4>
+<h4 className="font-semibold text-gray-900">{property.agent?.name || property.agent_name_c || "Sarah Johnson"}</h4>
                   <p className="text-sm text-gray-600">Premier Realty Group</p>
                   <div className="flex items-center space-x-1 mt-1">
                     <ApperIcon name="Star" size={14} className="text-yellow-500 fill-current" />
