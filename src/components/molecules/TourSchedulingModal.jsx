@@ -178,9 +178,9 @@ await tourService.create({
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Preferred Time *
                   </label>
-                  <Select
+<Select
                     value={formData.time}
-                    onValueChange={(value) => handleInputChange('time', value)}
+                    onChange={(e) => handleInputChange('time', e.target.value)}
                   >
                     <option value="">Select time</option>
                     {timeSlots.map((time) => (
