@@ -602,8 +602,8 @@ src={(property.images_c || property.images)?.[currentImageIndex] || '/api/placeh
               <div className="space-y-2 text-sm mb-4">
                 <div className="flex items-center space-x-2">
 <ApperIcon name="Calendar" size={16} className="text-gray-400" />
-                  <span className="text-gray-600">Created On:</span>
-                  <span className="font-medium">{property?.CreatedOn ? formatDate(new Date(property.CreatedOn)) : 'N/A'}</span>
+<span className="text-gray-600">Joining date:</span>
+                  <span className="font-medium">{property?.listed_date_c ? formatDate(new Date(property.listed_date_c)) : 'N/A'}</span>
                 </div>
               </div>
               
