@@ -32,9 +32,18 @@ const [property, setProperty] = useState(null);
     }).format(price);
   };
 
-  const formatSquareFeet = (sqft) => {
+const formatSquareFeet = (sqft) => {
     if (!sqft) return '0';
     return new Intl.NumberFormat('en-US').format(sqft);
+  };
+
+  const formatDate = (date) => {
+    if (!date) return 'N/A';
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }).format(new Date(date));
   };
 
   // Image navigation functions
@@ -587,6 +596,14 @@ src={(property.images_c || property.images)?.[currentImageIndex] || '/api/placeh
                     <span className="text-sm font-medium">4.9</span>
                     <span className="text-sm text-gray-600">(127 reviews)</span>
                   </div>
+                </div>
+</div>
+              
+              <div className="space-y-2 text-sm mb-4">
+                <div className="flex items-center space-x-2">
+                  <ApperIcon name="Calendar" size={16} className="text-gray-400" />
+                  <span className="text-gray-600">Joining date:</span>
+                  <span className="font-medium">{formatDate(new Date(Date.now() - 2 * 365 * 24 * 60 * 60 * 1000))}</span>
                 </div>
               </div>
               
